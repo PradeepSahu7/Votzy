@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Candidate Management - Votzy</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-vote-yea me-2"></i>
+          Votzy
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-home me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voters.html">
+                <i class="fas fa-users me-1"></i>Voters
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="candidates.html">
+                <i class="fas fa-user-tie me-1"></i>Candidates
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voting.html">
+                <i class="fas fa-ballot-check me-1"></i>Vote Now
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="results.html">
+                <i class="fas fa-chart-bar me-1"></i>Results
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container my-5">
+      <div class="text-center animate__animated animate__fadeIn">
+        <i class="fas fa-user-tie fa-4x text-primary mb-3"></i>
+        <h1 class="display-4 fw-bold gradient-text mb-3">
+          Candidate Management
+        </h1>
+        <p class="lead text-muted">
+          Register new candidates and manage existing ones
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="container mb-5">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button
+            class="btn btn-primary btn-lg shadow-hover animate__animated animate__bounceIn"
+            onclick="scrollToForm()"
+          >
+            <i class="fas fa-plus me-2"></i>Add New Candidate
+          </button>
+        </div>
+        <div class="col-auto">
+          <button
+            class="btn btn-info btn-lg shadow-hover animate__animated animate__bounceIn animate__delay-1s"
+            onclick="searchCandidate()"
+          >
+            <i class="fas fa-search me-2"></i>Search Candidate
+          </button>
+        </div>
+        <div class="col-auto">
+          <button
+            class="btn btn-success btn-lg shadow-hover animate__animated animate__bounceIn animate__delay-2s"
+            onclick="loadCandidates()"
+          >
+            <i class="fas fa-refresh me-2"></i>Refresh List
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="container mb-5">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInLeft"
+          >
+            <div class="card-body">
+              <div
+                class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-users text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-primary" id="totalCandidates">0</h4>
+              <p class="text-muted mb-0">Total Candidates</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInUp"
+          >
+            <div class="card-body">
+              <div
+                class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-flag text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-success" id="totalParties">0</h4>
+              <p class="text-muted mb-0">Political Parties</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInRight"
+          >
+            <div class="card-body">
+              <div
+                class="bg-warning bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-chart-line text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-warning">Active</h4>
+              <p class="text-muted mb-0">Election Status</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidate Registration Form -->
+    <div class="container mb-5" id="candidateFormSection">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header text-center">
+              <h3 class="mb-0">
+                <i class="fas fa-user-plus text-primary me-2"></i>
+                Register New Candidate
+              </h3>
+            </div>
+            <div class="card-body p-5">
+              <form id="candidateForm">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-user me-2"></i>Candidate Name
+                    </label>
+                    <input
+                      type="text"
+                      id="candidateName"
+                      class="form-control form-control-lg"
+                      placeholder="Enter candidate's full name"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-flag me-2"></i>Political Party
+                    </label>
+                    <input
+                      type="text"
+                      id="party"
+                      class="form-control form-control-lg"
+                      placeholder="Enter party name"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-12 text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-lg px-5 shadow-hover"
+                    >
+                      <i class="fas fa-plus-circle me-2"></i>
+                      Register Candidate
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-outline-secondary btn-lg px-4 ms-3"
+                    >
+                      <i class="fas fa-undo me-2"></i>
+                      Clear Form
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Candidates List -->
+    <div class="container mb-5">
+      <div class="card shadow-lg animate__animated animate__fadeIn">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">
+            <i class="fas fa-list text-success me-2"></i>
+            Registered Candidates
+          </h3>
+          <div class="d-flex gap-2">
+            <input
+              type="text"
+              id="searchInput"
+              class="form-control"
+              placeholder="Search candidates..."
+              style="width: 200px"
+            />
+            <button
+              class="btn btn-outline-primary"
+              onclick="filterCandidates()"
+            >
+              <i class="fas fa-filter"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    <i class="fas fa-id-badge me-1"></i>ID
+                  </th>
+                  <th><i class="fas fa-user me-1"></i>Candidate Name</th>
+                  <th><i class="fas fa-flag me-1"></i>Political Party</th>
+                  <th class="text-center">
+                    <i class="fas fa-cogs me-1"></i>Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="candidatesContainer">
+                <!-- Candidates will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="text-center py-5" style="display: none">
+            <i class="fas fa-inbox fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No Candidates Found</h4>
+            <p class="text-muted">
+              Start by adding your first candidate to the system.
+            </p>
+            <button class="btn btn-primary" onclick="scrollToForm()">
+              <i class="fas fa-plus me-2"></i>Add Candidate
+            </button>
+          </div>
+
+          <!-- Loading State -->
+          <div id="loadingState" class="text-center py-5">
+            <div class="spinner-border text-primary mb-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted">Loading candidates...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/candidates.js"></script>
+
+    <!-- Enhanced functionality -->
+    <script>
+      function scrollToForm() {
+        document.getElementById("candidateFormSection").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        document.getElementById("candidateName").focus();
+      }
+
+      function filterCandidates() {
+        const searchTerm = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const rows = document.querySelectorAll("#candidatesContainer tr");
+
+        let visibleCount = 0;
+        rows.forEach((row) => {
+          const text = row.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            row.style.display = "";
+            visibleCount++;
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        // Show empty state if no results
+        const emptyState = document.getElementById("emptyState");
+        if (visibleCount === 0 && rows.length > 0) {
+          emptyState.style.display = "block";
+        } else {
+          emptyState.style.display = "none";
+        }
+      }
+
+      // Real-time search
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", filterCandidates);
+
+      // Update statistics
+      function updateStatistics() {
+        const candidates = document.querySelectorAll("#candidatesContainer tr");
+        const parties = new Set();
+
+        candidates.forEach((row) => {
+          const partyCell = row.cells[2];
+          if (partyCell) {
+            parties.add(partyCell.textContent.trim());
+          }
+        });
+
+        document.getElementById("totalCandidates").textContent =
+          candidates.length;
+        document.getElementById("totalParties").textContent = parties.size;
+      }
+
+      // Override the original loadCandidates to include statistics
+      const originalLoadCandidates = window.loadCandidates;
+      window.loadCandidates = function () {
+        document.getElementById("loadingState").style.display = "block";
+        document.getElementById("emptyState").style.display = "none";
+
+        if (originalLoadCandidates) {
+          originalLoadCandidates();
+          // Update statistics after a short delay to allow DOM updates
+          setTimeout(updateStatistics, 500);
+        }
+      };
+    </script>
+  </body>
+</html>

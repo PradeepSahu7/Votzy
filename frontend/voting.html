@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cast Your Vote - Votzy</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-vote-yea me-2"></i>
+          Votzy
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-home me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voters.html">
+                <i class="fas fa-users me-1"></i>Voters
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="candidates.html">
+                <i class="fas fa-user-tie me-1"></i>Candidates
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="voting.html">
+                <i class="fas fa-ballot-check me-1"></i>Vote Now
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="results.html">
+                <i class="fas fa-chart-bar me-1"></i>Results
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container my-5">
+      <div class="text-center animate__animated animate__fadeIn">
+        <i class="fas fa-vote-yea fa-4x text-warning mb-3"></i>
+        <h1 class="display-4 fw-bold gradient-text mb-3">Cast Your Vote</h1>
+        <p class="lead text-muted">
+          Make your choice count - Your vote shapes the future
+        </p>
+      </div>
+    </div>
+
+    <!-- Voting Instructions -->
+    <div class="container mb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="card shadow-lg animate__animated animate__slideInUp">
+            <div class="card-header bg-gradient text-center">
+              <h4 class="mb-0 text-white">
+                <i class="fas fa-info-circle me-2"></i>
+                How to Vote
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="row text-center g-4">
+                <div class="col-md-3">
+                  <div class="p-3">
+                    <div
+                      class="bg-info bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">1</span>
+                    </div>
+                    <h6 class="fw-bold">Enter Voter ID</h6>
+                    <small class="text-muted"
+                      >Use your registered voter ID</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3">
+                    <div
+                      class="bg-warning bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">2</span>
+                    </div>
+                    <h6 class="fw-bold">Choose Candidate</h6>
+                    <small class="text-muted"
+                      >Select your preferred candidate</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3">
+                    <div
+                      class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">3</span>
+                    </div>
+                    <h6 class="fw-bold">Confirm Vote</h6>
+                    <small class="text-muted"
+                      >Review and submit your vote</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-3">
+                    <div
+                      class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">✓</span>
+                    </div>
+                    <h6 class="fw-bold">Done!</h6>
+                    <small class="text-muted">Your vote has been counted</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voting Statistics -->
+    <div class="container mb-5">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInLeft"
+          >
+            <div class="card-body">
+              <div
+                class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-users text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-primary" id="totalVotesCast">0</h4>
+              <p class="text-muted mb-0">Votes Cast</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInUp"
+          >
+            <div class="card-body">
+              <div
+                class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-chart-line text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-success" id="participationRate">0%</h4>
+              <p class="text-muted mb-0">Participation Rate</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInRight"
+          >
+            <div class="card-body">
+              <div
+                class="bg-warning bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-clock text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-warning">Live</h4>
+              <p class="text-muted mb-0">Election Status</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voting Form -->
+    <div class="container mb-5" id="votingFormSection">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header text-center">
+              <h3 class="mb-0">
+                <i class="fas fa-ballot-check text-warning me-2"></i>
+                Official Voting Ballot
+              </h3>
+            </div>
+            <div class="card-body p-5">
+              <form id="voteForm">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-id-card me-2"></i>Your Voter ID
+                    </label>
+                    <input
+                      type="number"
+                      id="voterId"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your voter ID number"
+                      required
+                      min="1"
+                    />
+                    <div class="form-text">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Enter the voter ID you received during registration
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-user-check me-2"></i>Select Your
+                      Candidate
+                    </label>
+                    <select
+                      id="candidateSelect"
+                      class="form-select form-select-lg"
+                      required
+                    >
+                      <option value="">Choose a candidate...</option>
+                    </select>
+                    <div class="form-text">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Select the candidate you want to vote for
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Candidate Preview -->
+                <div id="candidatePreview" class="mt-4" style="display: none">
+                  <div class="alert alert-info">
+                    <h6 class="fw-bold mb-2">
+                      <i class="fas fa-eye me-2"></i>Your Selection:
+                    </h6>
+                    <div id="previewContent"></div>
+                  </div>
+                </div>
+
+                <div class="row mt-5">
+                  <div class="col-12 text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-warning btn-lg px-5 shadow-hover"
+                    >
+                      <i class="fas fa-vote-yea me-2"></i>
+                      Cast My Vote
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-outline-secondary btn-lg px-4 ms-3"
+                    >
+                      <i class="fas fa-undo me-2"></i>
+                      Reset Form
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Security Notice -->
+                <div class="row mt-4">
+                  <div class="col-12">
+                    <div class="alert alert-warning">
+                      <h6 class="fw-bold mb-2">
+                        <i class="fas fa-shield-alt me-2"></i>Security Notice:
+                      </h6>
+                      <ul class="mb-0 small">
+                        <li>Your vote is completely anonymous and secure</li>
+                        <li>You can only vote once per election</li>
+                        <li>Your choice cannot be changed after submission</li>
+                        <li>All votes are encrypted and stored securely</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vote History -->
+    <div class="container mb-5">
+      <div class="card shadow-lg animate__animated animate__fadeIn">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">
+            <i class="fas fa-history text-info me-2"></i>
+            Live Vote Feed
+          </h3>
+          <div class="d-flex gap-2">
+            <span class="badge bg-success pulse">LIVE</span>
+            <button class="btn btn-outline-info btn-sm" onclick="loadVotes()">
+              <i class="fas fa-refresh"></i> Refresh
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    <i class="fas fa-hashtag me-1"></i>Vote #
+                  </th>
+                  <th class="text-center">
+                    <i class="fas fa-user me-1"></i>Voter ID
+                  </th>
+                  <th class="text-center">
+                    <i class="fas fa-user-tie me-1"></i>Candidate ID
+                  </th>
+                  <th class="text-center">
+                    <i class="fas fa-clock me-1"></i>Timestamp
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="votesTable">
+                <!-- Votes will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div
+            id="votesEmptyState"
+            class="text-center py-5"
+            style="display: none"
+          >
+            <i class="fas fa-ballot-check fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No Votes Cast Yet</h4>
+            <p class="text-muted">
+              Be the first to cast your vote in this election!
+            </p>
+          </div>
+
+          <!-- Loading State -->
+          <div id="votesLoadingState" class="text-center py-5">
+            <div class="spinner-border text-warning mb-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted">Loading vote history...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/voting.js"></script>
+
+    <!-- Enhanced functionality -->
+    <script>
+      // Candidate selection preview
+      document
+        .getElementById("candidateSelect")
+        .addEventListener("change", function () {
+          const selectElement = this;
+          const previewDiv = document.getElementById("candidatePreview");
+          const previewContent = document.getElementById("previewContent");
+
+          if (selectElement.value) {
+            const selectedOption =
+              selectElement.options[selectElement.selectedIndex];
+            const candidateText = selectedOption.textContent;
+
+            previewContent.innerHTML = `
+						<div class="d-flex align-items-center">
+							<div class="bg-warning bg-gradient rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+								<i class="fas fa-user-tie text-white"></i>
+							</div>
+							<div>
+								<div class="fw-bold">${candidateText}</div>
+								<small class="text-muted">Candidate ID: ${selectElement.value}</small>
+							</div>
+						</div>
+					`;
+            previewDiv.style.display = "block";
+          } else {
+            previewDiv.style.display = "none";
+          }
+        });
+
+      // Auto-refresh votes every 30 seconds
+      setInterval(() => {
+        if (typeof loadVotes === "function") {
+          loadVotes();
+        }
+      }, 30000);
+
+      // Pulse effect for live badge
+      const style = document.createElement("style");
+      style.textContent = `
+				.pulse {
+					animation: pulse 2s infinite;
+				}
+				@keyframes pulse {
+					0% { transform: scale(1); }
+					50% { transform: scale(1.1); }
+					100% { transform: scale(1); }
+				}
+			`;
+      document.head.appendChild(style);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voter Registration - Votzy</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-vote-yea me-2"></i>
+          Votzy
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-home me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="voters.html">
+                <i class="fas fa-users me-1"></i>Voters
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="candidates.html">
+                <i class="fas fa-user-tie me-1"></i>Candidates
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voting.html">
+                <i class="fas fa-ballot-check me-1"></i>Vote Now
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="results.html">
+                <i class="fas fa-chart-bar me-1"></i>Results
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container my-5">
+      <div class="text-center animate__animated animate__fadeIn">
+        <i class="fas fa-users fa-4x text-success mb-3"></i>
+        <h1 class="display-4 fw-bold gradient-text mb-3">Voter Registration</h1>
+        <p class="lead text-muted">
+          Join the democratic process - Your voice matters!
+        </p>
+      </div>
+    </div>
+
+    <!-- Registration Steps -->
+    <div class="container mb-5">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg animate__animated animate__slideInUp">
+            <div class="card-header bg-gradient text-center">
+              <h4 class="mb-0 text-white">
+                <i class="fas fa-clipboard-list me-2"></i>
+                Registration Process
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="row text-center g-4">
+                <div class="col-md-4">
+                  <div class="p-3">
+                    <div
+                      class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">1</span>
+                    </div>
+                    <h6 class="fw-bold">Fill Information</h6>
+                    <small class="text-muted"
+                      >Enter your personal details</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="p-3">
+                    <div
+                      class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">2</span>
+                    </div>
+                    <h6 class="fw-bold">Get Voter ID</h6>
+                    <small class="text-muted"
+                      >Receive unique voter identification</small
+                    >
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="p-3">
+                    <div
+                      class="bg-warning bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                      style="width: 60px; height: 60px"
+                    >
+                      <span class="text-white fw-bold fs-4">3</span>
+                    </div>
+                    <h6 class="fw-bold">Start Voting</h6>
+                    <small class="text-muted"
+                      >Cast your vote in elections</small
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="container mb-5">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInLeft"
+          >
+            <div class="card-body">
+              <div
+                class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-users text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-success" id="totalVoters">0</h4>
+              <p class="text-muted mb-0">Registered Voters</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInUp"
+          >
+            <div class="card-body">
+              <div
+                class="bg-info bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-check-circle text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-info">Active</h4>
+              <p class="text-muted mb-0">Registration Status</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInRight"
+          >
+            <div class="card-body">
+              <div
+                class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-shield-alt text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-primary">Secure</h4>
+              <p class="text-muted mb-0">Data Protection</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Form -->
+    <div class="container mb-5" id="voterFormSection">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header text-center">
+              <h3 class="mb-0">
+                <i class="fas fa-user-plus text-success me-2"></i>
+                Voter Registration Form
+              </h3>
+            </div>
+            <div class="card-body p-5">
+              <form id="voterForm">
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-user me-2"></i>Full Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                    <div class="form-text">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Enter your legal name as it appears on official documents
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-envelope me-2"></i>Email Address
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      class="form-control form-control-lg"
+                      placeholder="Enter your email address"
+                      required
+                    />
+                    <div class="form-text">
+                      <i class="fas fa-info-circle me-1"></i>
+                      We'll use this email to send important voting updates
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-12">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        id="termsCheck"
+                        required
+                      />
+                      <label class="form-check-label" for="termsCheck">
+                        I agree to the
+                        <a href="#" class="text-decoration-none"
+                          >Terms of Service</a
+                        >
+                        and
+                        <a href="#" class="text-decoration-none"
+                          >Privacy Policy</a
+                        >
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mt-4">
+                  <div class="col-12 text-center">
+                    <button
+                      type="submit"
+                      class="btn btn-success btn-lg px-5 shadow-hover"
+                    >
+                      <i class="fas fa-user-check me-2"></i>
+                      Register as Voter
+                    </button>
+                    <button
+                      type="reset"
+                      class="btn btn-outline-secondary btn-lg px-4 ms-3"
+                    >
+                      <i class="fas fa-undo me-2"></i>
+                      Clear Form
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Voters List -->
+    <div class="container mb-5">
+      <div class="card shadow-lg animate__animated animate__fadeIn">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">
+            <i class="fas fa-list text-primary me-2"></i>
+            Registered Voters
+          </h3>
+          <div class="d-flex gap-2">
+            <input
+              type="text"
+              id="searchVoterInput"
+              class="form-control"
+              placeholder="Search voters..."
+              style="width: 200px"
+            />
+            <button class="btn btn-outline-primary" onclick="filterVoters()">
+              <i class="fas fa-filter"></i>
+            </button>
+            <button class="btn btn-outline-success" onclick="loadVoters()">
+              <i class="fas fa-refresh"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="text-center">
+                    <i class="fas fa-id-badge me-1"></i>Voter ID
+                  </th>
+                  <th><i class="fas fa-user me-1"></i>Full Name</th>
+                  <th><i class="fas fa-envelope me-1"></i>Email Address</th>
+                  <th class="text-center">
+                    <i class="fas fa-cogs me-1"></i>Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="votersContainer">
+                <!-- Voters will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div
+            id="voterEmptyState"
+            class="text-center py-5"
+            style="display: none"
+          >
+            <i class="fas fa-user-plus fa-4x text-muted mb-3"></i>
+            <h4 class="text-muted">No Voters Registered Yet</h4>
+            <p class="text-muted">
+              Be the first to register and make your voice heard!
+            </p>
+            <button class="btn btn-success" onclick="scrollToVoterForm()">
+              <i class="fas fa-plus me-2"></i>Register Now
+            </button>
+          </div>
+
+          <!-- Loading State -->
+          <div id="voterLoadingState" class="text-center py-5">
+            <div class="spinner-border text-success mb-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="text-muted">Loading registered voters...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/voters.js"></script>
+
+    <!-- Enhanced functionality -->
+    <script>
+      function scrollToVoterForm() {
+        document.getElementById("voterFormSection").scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        document.getElementById("name").focus();
+      }
+
+      function filterVoters() {
+        const searchTerm = document
+          .getElementById("searchVoterInput")
+          .value.toLowerCase();
+        const rows = document.querySelectorAll("#votersContainer tr");
+
+        let visibleCount = 0;
+        rows.forEach((row) => {
+          const text = row.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            row.style.display = "";
+            visibleCount++;
+          } else {
+            row.style.display = "none";
+          }
+        });
+
+        // Show empty state if no results
+        const emptyState = document.getElementById("voterEmptyState");
+        if (visibleCount === 0 && rows.length > 0) {
+          emptyState.style.display = "block";
+        } else {
+          emptyState.style.display = "none";
+        }
+      }
+
+      // Real-time search
+      document
+        .getElementById("searchVoterInput")
+        .addEventListener("input", filterVoters);
+
+      // Update voter statistics
+      function updateVoterStatistics() {
+        const voters = document.querySelectorAll("#votersContainer tr");
+        document.getElementById("totalVoters").textContent = voters.length;
+      }
+
+      // Override the original loadVoters to include statistics
+      const originalLoadVoters = window.loadVoters;
+      window.loadVoters = function () {
+        document.getElementById("voterLoadingState").style.display = "block";
+        document.getElementById("voterEmptyState").style.display = "none";
+
+        if (originalLoadVoters) {
+          originalLoadVoters();
+          // Update statistics after a short delay to allow DOM updates
+          setTimeout(updateVoterStatistics, 500);
+        }
+      };
+    </script>
+  </body>
+</html>

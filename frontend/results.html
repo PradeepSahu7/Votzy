@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Election Results - Votzy</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Animate.css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <i class="fas fa-vote-yea me-2"></i>
+          Votzy
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">
+                <i class="fas fa-home me-1"></i>Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voters.html">
+                <i class="fas fa-users me-1"></i>Voters
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="candidates.html">
+                <i class="fas fa-user-tie me-1"></i>Candidates
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="voting.html">
+                <i class="fas fa-ballot-check me-1"></i>Vote Now
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="results.html">
+                <i class="fas fa-chart-bar me-1"></i>Results
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="container my-5">
+      <div class="text-center animate__animated animate__fadeIn">
+        <i class="fas fa-trophy fa-4x text-danger mb-3"></i>
+        <h1 class="display-4 fw-bold gradient-text mb-3">Election Results</h1>
+        <p class="lead text-muted">
+          Transparent and real-time election results
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="container mb-5">
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInLeft"
+          >
+            <div class="card-body">
+              <div
+                class="bg-info bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-poll text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-info" id="totalElections">0</h4>
+              <p class="text-muted mb-0">Elections Held</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInUp"
+          >
+            <div class="card-body">
+              <div
+                class="bg-success bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-check-circle text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-success" id="completedElections">0</h4>
+              <p class="text-muted mb-0">Completed</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInDown"
+          >
+            <div class="card-body">
+              <div
+                class="bg-warning bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-users text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-warning" id="totalParticipants">0</h4>
+              <p class="text-muted mb-0">Total Participants</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div
+            class="card text-center shadow-hover animate__animated animate__slideInRight"
+          >
+            <div class="card-body">
+              <div
+                class="bg-primary bg-gradient rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fas fa-chart-pie text-white fa-2x"></i>
+              </div>
+              <h4 class="fw-bold text-primary" id="avgTurnout">0%</h4>
+              <p class="text-muted mb-0">Average Turnout</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search Election Results -->
+    <div class="container mb-5" id="searchSection">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card shadow-lg animate__animated animate__fadeIn">
+            <div class="card-header text-center">
+              <h3 class="mb-0">
+                <i class="fas fa-search text-info me-2"></i>
+                Find Election Results
+              </h3>
+            </div>
+            <div class="card-body p-5">
+              <form id="searchResultForm">
+                <div class="row g-4 align-items-end">
+                  <div class="col-md-8">
+                    <label class="form-label fw-bold">
+                      <i class="fas fa-vote-yea me-2"></i>Election Name
+                    </label>
+                    <input
+                      type="text"
+                      id="electionName"
+                      class="form-control form-control-lg"
+                      placeholder="Enter election name to search results..."
+                      required
+                    />
+                    <div class="form-text">
+                      <i class="fas fa-info-circle me-1"></i>
+                      Enter the exact name of the election to view results
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <button
+                      type="submit"
+                      class="btn btn-info btn-lg w-100 shadow-hover"
+                    >
+                      <i class="fas fa-search me-2"></i>
+                      Search Results
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Quick Election Links -->
+              <div class="mt-4">
+                <h6 class="fw-bold text-muted mb-3">Quick Access:</h6>
+                <div class="d-flex flex-wrap gap-2">
+                  <button
+                    class="btn btn-outline-secondary btn-sm"
+                    onclick="quickSearch('Presidential Election 2024')"
+                  >
+                    Presidential Election 2024
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary btn-sm"
+                    onclick="quickSearch('Local Council 2024')"
+                  >
+                    Local Council 2024
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary btn-sm"
+                    onclick="quickSearch('Student Union 2024')"
+                  >
+                    Student Union 2024
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Display -->
+    <div id="resultsSection" class="container mb-5" style="display: none">
+      <div class="card shadow-lg animate__animated animate__fadeIn">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h3 class="mb-0">
+            <i class="fas fa-trophy text-warning me-2"></i>
+            <span id="electionTitle">Election Results</span>
+          </h3>
+          <div class="d-flex gap-2">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              onclick="exportResults()"
+            >
+              <i class="fas fa-download"></i> Export
+            </button>
+            <button
+              class="btn btn-outline-info btn-sm"
+              onclick="shareResults()"
+            >
+              <i class="fas fa-share"></i> Share
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Results Container -->
+          <div id="resultsContainer" class="row">
+            <!-- Results will be populated here -->
+          </div>
+
+          <!-- Charts Section -->
+          <div class="row mt-5">
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>Vote Distribution
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <canvas id="pieChart" width="400" height="400"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light">
+                  <h5 class="mb-0">
+                    <i class="fas fa-chart-bar me-2"></i>Vote Comparison
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <canvas id="barChart" width="400" height="400"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div
+      id="loadingResults"
+      class="container text-center"
+      style="display: none"
+    >
+      <div class="py-5">
+        <div
+          class="spinner-border text-primary mb-3"
+          role="status"
+          style="width: 3rem; height: 3rem"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h4 class="text-muted">Calculating Results...</h4>
+        <p class="text-muted">Please wait while we compile the election data</p>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/results.js"></script>
+
+    <!-- Enhanced functionality -->
+    <script>
+      let pieChart, barChart;
+
+      function quickSearch(electionName) {
+        document.getElementById("electionName").value = electionName;
+        document
+          .getElementById("searchResultForm")
+          .dispatchEvent(new Event("submit"));
+      }
+
+      function exportResults() {
+        // Simulate export functionality
+        Swal.fire({
+          title: "Export Results",
+          html: `
+						<div class="text-start">
+							<p>Choose export format:</p>
+							<div class="btn-group-vertical w-100" role="group">
+								<button class="btn btn-outline-primary" onclick="exportFormat('PDF')">
+									<i class="fas fa-file-pdf me-2"></i>Export as PDF
+								</button>
+								<button class="btn btn-outline-success" onclick="exportFormat('Excel')">
+									<i class="fas fa-file-excel me-2"></i>Export as Excel
+								</button>
+								<button class="btn btn-outline-info" onclick="exportFormat('CSV')">
+									<i class="fas fa-file-csv me-2"></i>Export as CSV
+								</button>
+							</div>
+						</div>
+					`,
+          showConfirmButton: false,
+          showCancelButton: true,
+          cancelButtonText: "Close",
+        });
+      }
+
+      function exportFormat(format) {
+        Swal.fire({
+          title: "Exported!",
+          text: `Results have been exported as ${format} file.`,
+          icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
+        });
+      }
+
+      function shareResults() {
+        if (navigator.share) {
+          navigator.share({
+            title: "Election Results - Votzy",
+            text: "Check out the latest election results",
+            url: window.location.href,
+          });
+        } else {
+          // Fallback for browsers that don't support Web Share API
+          navigator.clipboard.writeText(window.location.href).then(() => {
+            Swal.fire({
+              title: "Link Copied!",
+              text: "Election results link has been copied to clipboard.",
+              icon: "success",
+              timer: 2000,
+              timerProgressBar: true,
+            });
+          });
+        }
+      }
+
+      function createCharts(data) {
+        // Destroy existing charts
+        if (pieChart) pieChart.destroy();
+        if (barChart) barChart.destroy();
+
+        // Create pie chart
+        const pieCtx = document.getElementById("pieChart").getContext("2d");
+        pieChart = new Chart(pieCtx, {
+          type: "pie",
+          data: {
+            labels: ["Winner", "Others"],
+            datasets: [
+              {
+                data: [data.winnerVotes, data.totalVotes - data.winnerVotes],
+                backgroundColor: ["#48bb78", "#e2e8f0"],
+                borderWidth: 2,
+                borderColor: "#ffffff",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
+              },
+            },
+          },
+        });
+
+        // Create bar chart
+        const barCtx = document.getElementById("barChart").getContext("2d");
+        barChart = new Chart(barCtx, {
+          type: "bar",
+          data: {
+            labels: ["Winner Votes", "Total Votes"],
+            datasets: [
+              {
+                label: "Votes",
+                data: [data.winnerVotes, data.totalVotes],
+                backgroundColor: ["#667eea", "#764ba2"],
+                borderColor: ["#5a67d8", "#6b46c1"],
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    </script>
+  </body>
+</html>
